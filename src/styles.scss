@@ -37,3 +37,17 @@ $ait-angular-jasmine-test-theme: mat.define-light-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+.userRegistrationDialog {
+	.mat-dialog-container {
+    width: 524px;
+    height: 552px;
+		border-radius: 16px !important;
+	}
+
+  .mat-form-field{
+    width: 100%;
+  }
+}

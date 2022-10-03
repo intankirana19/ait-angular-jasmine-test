@@ -1,1 +1,49 @@
-<p>user-registration-form works!</p>
+<div>
+    <form [formGroup]="userForm">
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label class="mb-2">User Name</mat-label>
+                <input matInput type="text" formControlName="username">
+                <mat-error *ngIf="userForm.controls['username'].errors?.['required']">User Name is required</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Full Name</mat-label>
+                <input matInput type="text" formControlName="fullname">
+                <mat-error *ngIf="userForm.controls['fullname'].errors?.['required']">Full Name is required</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName="email" placeholder="Your email">
+                <mat-error *ngIf="userForm.controls['email'].errors?.['required']">Email is required</mat-error>
+                <mat-error *ngIf="userForm.controls['email'].errors?.['pattern']">Please enter valid email</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Company</mat-label>
+                <input matInput type="text" formControlName="company">
+                <mat-error *ngIf="userForm.controls['company'].errors?.['required']">Company is required</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Address</mat-label>
+                <input matInput type="text" formControlName="address">
+                <mat-error *ngIf="userForm.controls['company'].errors?.['required']">Address is required</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div mat-dialog-actions>
+            <button mat-flat-button type="submit" (click)="closeDialog(false)">Cancel</button>
+            <button mat-flat-button type="submit" [disabled]="!userForm.valid" (click)="closeDialog(true)">Submit</button>
+        </div>
+    </form>
+</div>

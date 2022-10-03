@@ -1,4 +1,4 @@
 <div>
-  <button (click)="showNewUserForm()">Register new user</button>
-  <app-user-list></app-user-list>
+  <button (click)="showNewUserForm($event)">Register new user</button>
+  <app-user-list [data]="userListArray"></app-user-list>
 </div>

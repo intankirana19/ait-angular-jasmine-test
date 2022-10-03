@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { UserModel } from '../shared/model/user.model';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table'
 
 @Component({
   selector: 'app-user-list',
@@ -6,10 +9,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
+  @ViewChild(MatSort) sort!: MatSort;
+  
+  @Input()
+	public data!: UserModel[];
 
-  constructor() { }
+  public dataSource = new MatTableDataSource(this.data);
+
+  columnsToDisplay = ['username', 'fullname', 'email', 'company', 'address'];
+  
+  constructor() { 
+    this.dataSource.data = this.data;
+  }
 
   ngOnInit(): void {
+    console.log('this.data', this.data)
+    console.log('this.dataSource', this.dataSource)
+    this.dataSource.sort = this.sort;
   }
+
 
 }
