@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { UserCreateModel } from './shared/model/user-create.model';
 import { UserModel } from './shared/model/user.model';
+import { UserService } from './shared/service/user/user.service';
 import { UserRegistrationFormComponent } from './user-registration-form/user-registration-form.component';
 
 @Component({
@@ -15,15 +16,17 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private subs!: Subscription[];
 
-  public userListArray: UserModel[] = [];
+  public userListArray!: UserModel[];
 
   constructor(
 		private dialog: MatDialog,
+    private userService: UserService
 	) {
 	}
 
   ngOnInit(): void {
 		this.subs = [];
+    this.userListArray = [];
   }
 
   public showNewUserForm(user: any) {
@@ -48,6 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private createUserService(user: UserModel) {
     const userData = new UserCreateModel().clone(user);
     this.userListArray.push(userData);
+    this.userService.userDatas = this.userListArray;
   }
 
   ngOnDestroy(): void {

@@ -2,6 +2,8 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { UserModel } from '../shared/model/user.model';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table'
+import { UserService } from '../shared/service/user/user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-list',
@@ -9,24 +11,33 @@ import { MatTableDataSource } from '@angular/material/table'
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
+  private subs!: Subscription[];
+  
   @ViewChild(MatSort) sort!: MatSort;
-  
-  @Input()
-	public data!: UserModel[];
 
-  public dataSource = new MatTableDataSource(this.data);
+  public dataSource = new MatTableDataSource();
 
-  columnsToDisplay = ['username', 'fullname', 'email', 'company', 'address'];
+  public columnsToDisplay = ['username', 'fullname', 'email', 'company', 'address'];
   
-  constructor() { 
-    this.dataSource.data = this.data;
-  }
+  constructor(
+    private userService: UserService,
+  ) { }
 
   ngOnInit(): void {
-    console.log('this.data', this.data)
-    console.log('this.dataSource', this.dataSource)
-    this.dataSource.sort = this.sort;
+    this.subs = [];
+    this.fetchUserDatas();
   }
 
+  private fetchUserDatas() {
+    const userSub = this.userService.userDatas$.subscribe((response) =>{
+      this.dataSource.data = response;
+      this.dataSource.sort = this.sort;
+    });
 
+    this.subs.push(userSub);
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach((each) => each.unsubscribe());
+  }
 }

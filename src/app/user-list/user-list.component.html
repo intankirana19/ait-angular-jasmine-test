@@ -1,10 +1,13 @@
 <table mat-table matSort [dataSource]="dataSource">
+  <caption hidden>
+    user table
+  </caption>
 
     <ng-container matColumnDef="username">
       <th mat-header-cell *matHeaderCellDef>
         <span>User Name</span>
         <button mat-button mat-sort-header>
-          <mat-icon class="sort-icon" svgIcon="sortIcon"></mat-icon>
+          <mat-icon>sort</mat-icon>
         </button>
       </th>
       <td mat-cell *matCellDef="let user">{{user.username}}</td>
@@ -14,7 +17,7 @@
       <th mat-header-cell *matHeaderCellDef>
         <span>Full Name</span>
         <button mat-button mat-sort-header>
-          <mat-icon class="sort-icon" svgIcon="sortIcon"></mat-icon>
+          <mat-icon>sort</mat-icon>
         </button>
       </th>
       <td mat-cell *matCellDef="let user">{{user.fullname}}</td>
@@ -24,7 +27,7 @@
       <th mat-header-cell *matHeaderCellDef>
         <span>Email</span>
         <button mat-button mat-sort-header>
-          <mat-icon class="sort-icon" svgIcon="sortIcon"></mat-icon>
+          <mat-icon>sort</mat-icon>
         </button>
       </th>
       <td mat-cell *matCellDef="let user">{{user.email}}</td>
@@ -34,7 +37,7 @@
       <th mat-header-cell *matHeaderCellDef>
         <span>Company</span>
         <button mat-button mat-sort-header>
-          <mat-icon class="sort-icon" svgIcon="sortIcon"></mat-icon>
+          <mat-icon>sort</mat-icon>
         </button>
       </th>
       <td mat-cell *matCellDef="let user">{{user.company}}</td>
@@ -44,7 +47,7 @@
         <th mat-header-cell *matHeaderCellDef>
           <span>Address</span>
           <button mat-button mat-sort-header>
-            <mat-icon class="sort-icon" svgIcon="sortIcon"></mat-icon>
+            <mat-icon>sort</mat-icon>
           </button>
         </th>
         <td mat-cell *matCellDef="let user">{{user.address}}</td>

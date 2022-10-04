@@ -54,8 +54,6 @@ export class UserRegistrationFormComponent implements OnInit, OnDestroy {
 			return;
 		}
 
-    console.log('this.userForm', this.userForm.value)
-
 		this.user.username = this.userForm.get('username')?.value;
 		this.user.fullname = this.userForm.get('fullname')?.value;
 		this.user.email = this.userForm.get('email')?.value;
