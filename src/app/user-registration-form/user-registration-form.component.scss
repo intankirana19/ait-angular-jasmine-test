@@ -1,0 +1,27 @@
+.userForm {
+    width: 100%;
+
+    &__button {
+        width: 100%;
+        text-align: right;
+        margin-top: 68px;
+
+        &-cancel {
+            color: #858585;
+            border: 1px solid #858585;
+            border-radius: 8px;
+            width: 152px;
+            height: 43px;
+            margin-right: 16px;
+        }
+
+        &-submit {
+            color: #ffff;
+            // border: 1px solid #5189F4;
+            border-radius: 8px;
+            background-color: #5189F4;
+            width: 152px;
+            height: 43px;
+        }
+    }
+}

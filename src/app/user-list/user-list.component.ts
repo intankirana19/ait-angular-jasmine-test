@@ -17,7 +17,7 @@ export class UserListComponent implements OnInit {
 
   public dataSource = new MatTableDataSource();
 
-  public columnsToDisplay = ['username', 'fullname', 'email', 'company', 'address'];
+  public userDataColumns = ['username', 'fullname', 'email', 'company', 'address'];
   
   constructor(
     private userService: UserService,

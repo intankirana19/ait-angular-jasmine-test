@@ -1,4 +1,4 @@
-<div>
+<div class="userForm">
     <form [formGroup]="userForm">
         <div>
             <mat-form-field appearance="fill">
@@ -41,9 +41,9 @@
             </mat-form-field>
         </div>
 
-        <div mat-dialog-actions>
-            <button mat-flat-button type="submit" (click)="closeDialog(false)">Cancel</button>
-            <button mat-flat-button type="submit" [disabled]="!userForm.valid" (click)="closeDialog(true)">Submit</button>
+        <div class="userForm__button">
+            <button mat-flat-button type="submit" class="userForm__button-cancel" (click)="closeDialog(false)">Cancel</button>
+            <button mat-flat-button type="submit" class="userForm__button-submit" [disabled]="!userForm.valid" (click)="closeDialog(true)">Add</button>
         </div>
     </form>
 </div>
