@@ -36,10 +36,10 @@ export class UserRegistrationFormComponent implements OnInit, OnDestroy {
   private initForm() {
     this.userForm = this.fb.group({
       username: [null, [Validators.required]],
-      fullname: [null, [Validators.required]],
+      name: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       company: [null, [Validators.required]],
-      address: [null, [Validators.required]]
+      address: [null, [Validators.required, Validators.pattern("^[a-zA-Z0-9._ ]+,[a-zA-Z0-9._ ]+,[a-zA-Z0-9._ ]+$")]]
     })
   }
 
@@ -55,10 +55,15 @@ export class UserRegistrationFormComponent implements OnInit, OnDestroy {
 		}
 
 		this.user.username = this.userForm.get('username')?.value;
-		this.user.fullname = this.userForm.get('fullname')?.value;
+		this.user.name = this.userForm.get('name')?.value;
 		this.user.email = this.userForm.get('email')?.value;
-		this.user.company = this.userForm.get('company')?.value;
-		this.user.address = this.userForm.get('address')?.value;
+		this.user.company.name = this.userForm.get('company')?.value;
+
+    let addressArray: any = [];
+    addressArray = this.userForm.get('address')?.value.split(',');
+		this.user.address.street = addressArray[0];
+		this.user.address.suite = addressArray[1];
+		this.user.address.city = addressArray[2];
 		this.dialogRef.close(this.user);
 	}
 

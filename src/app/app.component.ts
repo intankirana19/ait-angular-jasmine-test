@@ -27,6 +27,23 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 		this.subs = [];
     this.userListArray = [];
+    this.getUserList();
+  }
+
+  public getUserList() {
+    this.userService.getUsersService().subscribe(
+      results => {
+        if (!results) {
+          return;
+        }
+        results.forEach((user) => {
+          const userData = new UserCreateModel().clone(user);
+          this.userListArray.push(userData);
+          this.userService.userDatas = this.userListArray;
+          // localStorage.setItem('userList', JSON.stringify(this.userListArray));
+        });
+      }
+    );
   }
 
   public showNewUserForm(user: any) {

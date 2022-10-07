@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UserModel } from '../../model/user.model';
@@ -12,7 +13,15 @@ export class UserService {
 
   userDatas$: Observable<UserModel[]> = this.userSubject.asObservable();
 
-  constructor() { }
+  private userDataUrl = 'https://jsonplaceholder.typicode.com/users';
+
+  constructor(
+    private http: HttpClient
+  ) { }
+
+  getUsersService() {
+    return this.http.get<UserModel[]>(this.userDataUrl);
+  }
 
   set userDatas(value: UserModel[]) {
     this.userSubject.next(value);

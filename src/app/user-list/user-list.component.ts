@@ -17,7 +17,7 @@ export class UserListComponent implements OnInit {
 
   public dataSource = new MatTableDataSource();
 
-  public userDataColumns = ['username', 'fullname', 'email', 'company', 'address'];
+  public userDataColumns = ['username', 'name', 'email', 'company', 'address'];
   
   constructor(
     private userService: UserService,
@@ -30,6 +30,7 @@ export class UserListComponent implements OnInit {
 
   private fetchUserDatas() {
     const userSub = this.userService.userDatas$.subscribe((response) =>{
+
       this.dataSource.data = response;
       this.dataSource.sort = this.sort;
     });
