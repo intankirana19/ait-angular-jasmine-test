@@ -9,9 +9,8 @@ import { UserModel } from '../shared/model/user.model';
   templateUrl: './user-registration-form.component.html',
   styleUrls: ['./user-registration-form.component.scss']
 })
-export class UserRegistrationFormComponent implements OnInit, OnDestroy {
+export class UserRegistrationFormComponent implements OnInit {
 
-  private subs!: Subscription[];
   private user!: UserModel;
 
 	public isLoading!: boolean;
@@ -23,12 +22,12 @@ export class UserRegistrationFormComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA)
 		private data: {
-			user: UserModel
+			user: UserModel,
+      id: number[]
 		},
   ) { }
 
   ngOnInit(): void {
-    this.subs = [];
     this.user = this.data.user;
     this.initForm();
   }
@@ -54,21 +53,31 @@ export class UserRegistrationFormComponent implements OnInit, OnDestroy {
 			return;
 		}
 
+    let lastID = Math.max.apply(null, this.data.id)
+    const currentID = lastID + 1;
+
+    this.user.id = currentID;
 		this.user.username = this.userForm.get('username')?.value;
 		this.user.name = this.userForm.get('name')?.value;
 		this.user.email = this.userForm.get('email')?.value;
-		this.user.company.name = this.userForm.get('company')?.value;
+		this.user.company = { 
+      name: this.userForm.get('company')?.value,
+      bs: '',
+      catchPhrase: ''
+    };
 
     let addressArray: any = [];
     addressArray = this.userForm.get('address')?.value.split(',');
-		this.user.address.street = addressArray[0];
-		this.user.address.suite = addressArray[1];
-		this.user.address.city = addressArray[2];
+    this.user.address = {
+      street: addressArray[0],
+      suite: addressArray[1],
+      city: addressArray[2],
+      zipcode: '',
+      geo: {
+        lat: '',
+        lng: ''
+      }
+    };
 		this.dialogRef.close(this.user);
 	}
-
-  ngOnDestroy(): void {
-		this.subs.forEach((each) => each.unsubscribe());
-	}
-
 }

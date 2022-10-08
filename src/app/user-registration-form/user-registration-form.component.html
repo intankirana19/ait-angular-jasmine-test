@@ -1,54 +1,54 @@
-<div class="userForm">
-    <form [formGroup]="userForm">
-        <div>
-            <mat-form-field appearance="fill">
-                <mat-label class="mb-2">User Name</mat-label>
-                <input matInput type="text" formControlName="username">
-                <mat-error *ngIf="userForm.controls['username'].errors?.['required']">User Name is required</mat-error>
-            </mat-form-field>
-        </div>
-
-        <div>
-            <mat-form-field appearance="fill">
-                <mat-label>Full Name</mat-label>
-                <input matInput type="text" formControlName="name">
-                <mat-error *ngIf="userForm.controls['name'].errors?.['required']">Full Name is required</mat-error>
-            </mat-form-field>
-        </div>
-
-        <div>
-            <mat-form-field appearance="fill">
-                <mat-label>Email</mat-label>
-                <input matInput type="email" formControlName="email" placeholder="Your email">
-                <mat-error *ngIf="userForm.controls['email'].errors?.['required']">Email is required</mat-error>
-                <mat-error *ngIf="userForm.controls['email'].errors?.['pattern']">Please enter valid email</mat-error>
-            </mat-form-field>
-        </div>
-
-        <div>
-            <mat-form-field appearance="fill">
-                <mat-label>Company</mat-label>
-                <input matInput type="text" formControlName="company">
-                <mat-error *ngIf="userForm.controls['company'].errors?.['required']">Company is required</mat-error>
-            </mat-form-field>
-        </div>
-
-        <div>
-            <mat-form-field appearance="fill">
-                <mat-label>Address</mat-label>
-                <input matInput type="text" formControlName="address">
-                <mat-error *ngIf="userForm.controls['address'].errors?.['required']">Address is required</mat-error>
-                <mat-error *ngIf="userForm.controls['address'].errors?.['pattern']">
-                    Address format is street, building, city <br>
-                    Example: <br>
-                    <strong>Kulas Light, Apt. 556, Gwenborough</strong>
-                </mat-error>
-            </mat-form-field>
+<form class="userForm" [formGroup]="userForm">
+        <div class="userForm__form" >
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label class="mb-2">User Name</mat-label>
+                    <input matInput type="text" formControlName="username">
+                    <mat-error *ngIf="userForm.controls['username'].errors?.['required']">User Name is required</mat-error>
+                </mat-form-field>
+            </div>
+    
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Full Name</mat-label>
+                    <input matInput type="text" formControlName="name">
+                    <mat-error *ngIf="userForm.controls['name'].errors?.['required']">Full Name is required</mat-error>
+                </mat-form-field>
+            </div>
+    
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" formControlName="email" placeholder="Your email">
+                    <mat-error *ngIf="userForm.controls['email'].errors?.['required']">Email is required</mat-error>
+                    <mat-error *ngIf="userForm.controls['email'].errors?.['pattern']">Please enter valid email</mat-error>
+                </mat-form-field>
+            </div>
+    
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Company</mat-label>
+                    <input matInput type="text" formControlName="company">
+                    <mat-error *ngIf="userForm.controls['company'].errors?.['required']">Company is required</mat-error>
+                </mat-form-field>
+            </div>
+    
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Address</mat-label>
+                    <input matInput type="text" formControlName="address">
+                    <mat-error *ngIf="userForm.controls['address'].errors?.['required']">Address is required</mat-error>
+                    <mat-error *ngIf="userForm.controls['address'].errors?.['pattern']">
+                        Address format is street, building, city <br>
+                        Example: <br>
+                        <strong>Kulas Light, Apt. 556, Gwenborough</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div> 
         </div>
 
         <div class="userForm__button">
             <button mat-flat-button type="submit" class="userForm__button-cancel" (click)="closeDialog(false)">Cancel</button>
-            <button mat-flat-button type="submit" class="userForm__button-submit" [disabled]="!userForm.valid" (click)="closeDialog(true)">Add</button>
+            <button mat-flat-button type="submit" class="userForm__button-submit" (click)="closeDialog(true)">Add</button>
         </div>
-    </form>
-</div>
+</form>

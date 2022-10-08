@@ -13,6 +13,12 @@ export class UserService {
 
   userDatas$: Observable<UserModel[]> = this.userSubject.asObservable();
 
+  idSubject: BehaviorSubject<number[]> = new BehaviorSubject<number[]>(
+    [],
+  );
+
+  idDatas$: Observable<number[]> = this.idSubject.asObservable();
+
   private userDataUrl = 'https://jsonplaceholder.typicode.com/users';
 
   constructor(
@@ -25,10 +31,19 @@ export class UserService {
 
   set userDatas(value: UserModel[]) {
     this.userSubject.next(value);
+    localStorage.setItem('userList', JSON.stringify(value));
   }
 
   get userDatas() {
     return this.userSubject.value;
+  }
+
+  set idDatas(value: number[]) {
+    this.idSubject.next(value);
+  }
+
+  get idDatas() {
+    return this.idSubject.value;
   }
 
   clearUser() {

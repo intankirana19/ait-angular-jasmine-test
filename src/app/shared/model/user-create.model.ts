@@ -89,7 +89,7 @@ export class CompanyCreateModel {
 }
 
 export class UserCreateModel {
-    public id!: string;	
+    public id!: number;	
 	public name!: string;	
 	public username!: string;	
 	public email!: string;	

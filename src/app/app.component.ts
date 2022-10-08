@@ -17,6 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private subs!: Subscription[];
 
   public userListArray!: UserModel[];
+  public userIDs!: number[];
 
   constructor(
 		private dialog: MatDialog,
@@ -26,47 +27,56 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 		this.subs = [];
+		this.userIDs = [];
     this.userListArray = [];
     this.getUserList();
   }
 
   public getUserList() {
-    this.userService.getUsersService().subscribe(
-      results => {
-        if (!results) {
-          return;
-        }
-        results.forEach((user) => {
-          const userData = new UserCreateModel().clone(user);
-          this.userListArray.push(userData);
-          this.userService.userDatas = this.userListArray;
-          // localStorage.setItem('userList', JSON.stringify(this.userListArray));
+    const userList = JSON.parse(localStorage.getItem('userList') || '{}');
+    if(userList.length > 0) {
+      this.userService.userDatas = userList;
+    } else {
+      this.userService.getUsersService().subscribe(
+        results => {
+          if (!results) {
+            return;
+          }
+          results.forEach((user) => {
+              const idInt = user.id;
+              this.userIDs.push(idInt);
+              const userData = new UserCreateModel().clone(user);
+              this.userListArray.push(userData);
+              this.userService.userDatas = this.userListArray;
+          });
         });
-      }
-    );
+    }
   }
 
   public showNewUserForm(user: any) {
-    const subUserFormDialog = this.dialog
-    .open(UserRegistrationFormComponent, {
-        autoFocus: false,
-				data: {
-					user: {...user},
-				},
-        panelClass: 'userRegistrationDialog',
-    })
-    .afterClosed()
-    .subscribe((resp) => {
-      if (resp) {
-        this.createUserService(resp);
-      }
-    });
+      const subUserFormDialog = this.dialog
+      .open(UserRegistrationFormComponent, {
+          autoFocus: false,
+          data: {
+            user: {...user},
+            id: this.userIDs
+          },
+          panelClass: 'userRegistrationDialog',
+      })
+      .afterClosed()
+      .subscribe((resp) => {
+        if (resp) {
+          this.createUserService(resp);
+        }
+      });
 
-    this.subs.push(subUserFormDialog);
+      this.subs.push(subUserFormDialog);
   }
 
   private createUserService(user: UserModel) {
     const userData = new UserCreateModel().clone(user);
+    const idInt = userData.id;
+    this.userIDs.push(idInt);
     this.userListArray.push(userData);
     this.userService.userDatas = this.userListArray;
   }

@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { UserModel } from '../shared/model/user.model';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table'
 import { UserService } from '../shared/service/user/user.service';
@@ -30,7 +29,7 @@ export class UserListComponent implements OnInit {
 
   private fetchUserDatas() {
     const userSub = this.userService.userDatas$.subscribe((response) =>{
-
+      
       this.dataSource.data = response;
       this.dataSource.sort = this.sort;
     });
