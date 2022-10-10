@@ -27,34 +27,4 @@ export class UserModel {
 	public phone!: string;	
 	public website!: string;	
 	public company!: CompanyModel;	
-
-
-	public convert(dto: any): UserModel {
-		if (dto.id) {
-			this.id = dto.id;
-		}
-		if (dto.name) {
-			this.name = dto.name;
-		}
-		if (dto.username) {
-			this.username = dto.username;
-		}
-		if (dto.email) {
-			this.email = dto.email;
-		}
-		if (dto.address) {
-			this.address = dto.address;
-		}
-		if (dto.phone) {
-			this.phone = dto.phone;
-		}
-		if (dto.website) {
-			this.website = dto.website;
-		}
-		if (dto.company) {
-			this.company = dto.company;
-		}
-
-		return this;
-	}
 }

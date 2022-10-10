@@ -11,8 +11,6 @@ import { Subscription } from 'rxjs';
 })
 export class UserListComponent implements OnInit {
   private subs!: Subscription[];
-  
-  @ViewChild(MatSort) sort!: MatSort;
 
   public dataSource = new MatTableDataSource();
 
@@ -27,11 +25,10 @@ export class UserListComponent implements OnInit {
     this.fetchUserDatas();
   }
 
-  private fetchUserDatas() {
+  fetchUserDatas() {
     const userSub = this.userService.userDatas$.subscribe((response) =>{
-      
       this.dataSource.data = response;
-      this.dataSource.sort = this.sort;
+      console.log(this.dataSource.data)
     });
 
     this.subs.push(userSub);
