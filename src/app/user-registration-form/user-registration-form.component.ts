@@ -18,7 +18,7 @@ export class UserRegistrationFormComponent implements OnInit {
 	public validationMessages: any;
 
   constructor(
-    private dialogRef: MatDialogRef<UserRegistrationFormComponent>,
+    public dialogRef: MatDialogRef<UserRegistrationFormComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA)
 		private data: {

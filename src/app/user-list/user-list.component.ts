@@ -28,7 +28,6 @@ export class UserListComponent implements OnInit {
   fetchUserDatas() {
     const userSub = this.userService.userDatas$.subscribe((response) =>{
       this.dataSource.data = response;
-      console.log(this.dataSource.data)
     });
 
     this.subs.push(userSub);

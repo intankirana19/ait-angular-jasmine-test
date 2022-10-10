@@ -37,6 +37,7 @@ export class UserService {
   setUserDataOnLocalStorage(data: UserModel[]) {
     localStorage.setItem('userList', JSON.stringify(data));
   }
+  
   get userDatas() {
     return this.userSubject.value;
   }

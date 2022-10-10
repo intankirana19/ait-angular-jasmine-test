@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public userIDs!: number[];
 
   constructor(
-		private dialog: MatDialog,
+		public dialog: MatDialog,
     private userService: UserService
 	) {
 	}
@@ -73,7 +73,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.subs.push(subUserFormDialog);
   }
 
-  private createUserService(user: UserModel) {
+  public createUserService(user: UserModel) {
     const userData = new UserCreateModel().clone(user);
     const idInt = userData.id;
     this.userIDs.push(idInt);
