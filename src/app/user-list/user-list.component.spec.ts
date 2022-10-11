@@ -1,8 +1,9 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
-import { mockUser1 } from '../shared/mocks/user.mock';
+import { mockUser1, mockUserArray, mockUserOne } from '../shared/mocks/user.mock';
+import { UserService } from '../shared/service/user/user.service';
 
 import { UserListComponent } from './user-list.component';
 
@@ -10,6 +11,7 @@ describe('UserListComponent', () => {
   let component: UserListComponent;
   let fixture: ComponentFixture<UserListComponent>;
   let matDialog: jasmine.SpyObj<MatDialog>;
+  let userService: UserService;
 
   beforeEach(async () => {
     matDialog = jasmine.createSpyObj('MatDialog', ['open', 'closeAll']);
@@ -25,6 +27,7 @@ describe('UserListComponent', () => {
       declarations: [UserListComponent],
     }).compileComponents();
 
+    userService = TestBed.inject(UserService);
     fixture = TestBed.createComponent(UserListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -61,47 +64,59 @@ describe('UserListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should render user-list table', () => {
-  //   // TODO: write unit test that expect user-list table show in app
+  it('should render user-list table', (done) => {
+    // TODO: write unit test that expect user-list table show in app
+    // component.dataSource.data = mockUserOne;
     
-  //   fixture.detectChanges();
-  //   fixture.whenStable().then(() => {
-  //     fixture.detectChanges();
-  //     let tableRows = fixture.nativeElement.querySelectorAll('tr');
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      let tableRows = fixture.nativeElement.querySelectorAll('tr');
 
-  //     let headerRow = tableRows[0];
-  //     expect(headerRow.cells[0].innerHTML).toBe('User Name');
-  //     expect(headerRow.cells[1].innerHTML).toBe('Full Name');
-  //     expect(headerRow.cells[2].innerHTML).toBe('Email');
-  //     expect(headerRow.cells[3].innerHTML).toBe('Company');
-  //     expect(headerRow.cells[4].innerHTML).toBe('Address');
-
-  //     let row1 = tableRows[1];
-  //     expect(row1.cells[0].innerHTML).toBe(mockUser1.username);
-  //     expect(row1.cells[1].innerHTML).toBe(mockUser1.name);
-  //     expect(row1.cells[2].innerHTML).toBe(mockUser1.email);
-  //     expect(row1.cells[3].innerHTML).toBe(mockUser1.company);
-  //     expect(row1.cells[4].innerHTML).toBe(mockUser1.address);
+      let headerRow = tableRows[0];
+      expect(headerRow.cells[0].innerHTML).toBe(' User Name ');
+      expect(headerRow.cells[1].innerHTML).toBe(' Full Name ');
+      expect(headerRow.cells[2].innerHTML).toBe(' Email ');
+      expect(headerRow.cells[3].innerHTML).toBe(' Company ');
+      expect(headerRow.cells[4].innerHTML).toBe(' Address ');
 
 
-  //     done();
-  //   });
-  // });
+      done();
+    });
+  });
 
-  // it('should re-render user-list table every time user data append', () => {
-  //   // TODO: write unit test that expect the count of user-list shown in table equal with data from localStorage
+  it('should re-render user-list table every time user data append', (done) => {
+    // TODO: write unit test that expect the count of user-list shown in table equal with data from localStorage
+    userService.userDatas = mockUserOne;
+    expect(localStorage.getItem('userList')).toEqual(JSON.stringify(mockUserOne));
+
+    const fetchUserDatasSpy = spyOn(component, 'fetchUserDatas').and.callThrough();
+    component.ngOnInit();
+    expect(fetchUserDatasSpy).toHaveBeenCalled();
     
-  //   fixture.whenStable().then(() => {
-  //     fixture.detectChanges();
-  //     let tableRows = fixture.nativeElement.querySelectorAll('tr');
-  //     let row1 = tableRows[1];
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      let tableRows = fixture.nativeElement.querySelectorAll('tr');
 
-  //     const userList = JSON.parse(localStorage.getItem('userList') || '{}');
-  //     expect(row1.cells.length).toBe(userList.length);
+      let headerRow = tableRows[0];
+      expect(headerRow.cells[0].innerHTML).toBe(' User Name ');
+      expect(headerRow.cells[1].innerHTML).toBe(' Full Name ');
+      expect(headerRow.cells[2].innerHTML).toBe(' Email ');
+      expect(headerRow.cells[3].innerHTML).toBe(' Company ');
+      expect(headerRow.cells[4].innerHTML).toBe(' Address ');
 
-  //     done();
-  //   });
-  // });
+      let row1 = tableRows[2];
+      expect(row1.cells[0].innerHTML).toBe('Bret');
+      expect(row1.cells[1].innerHTML).toBe('Leanne Graham');
+      expect(row1.cells[2].innerHTML).toBe('Sincere@april.biz');
+      expect(row1.cells[3].innerHTML).toBe('Romaguera-Crona');
+      expect(row1.cells[4].innerHTML).toBe(' Kulas Light, Apt. 556, Gwenborough ');
+
+
+      done();
+    });
+  });
 });
 
 function done() {

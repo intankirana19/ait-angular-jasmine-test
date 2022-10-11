@@ -250,21 +250,22 @@ const mockUser11: UserModel = {
       street: 'Street User 11',
       suite: 'Suite User 11',
       city: 'City User 11',
-      zipcode: '11111-11111',
+      zipcode: '',
       geo: {
-        lat: '-11.1111',
-        lng: '11.1111'
+        lat: '',
+        lng: ''
       }
     },
-    phone: '111-111-111',
-    website: '11.net',
+    phone: '',
+    website: '',
     company: {
       name: 'Company User 11',
-      catchPhrase: 'CatchPhrase User 11',
-      bs: 'BS User 11'
+      catchPhrase: '',
+      bs: ''
     }
 }
 
 const mockUserArray: UserModel[] = [ mockUser1, mockUser2, mockUser3, mockUser4, mockUser5, mockUser6, mockUser7, mockUser8, mockUser9, mockUser10 ];
+const mockUserOne: UserModel[] = [ mockUser1 ];
 
-export { mockUser1, mockUser2, mockUser3, mockUser4, mockUser5, mockUser6, mockUser7, mockUser8, mockUser9, mockUser10, mockUser11, mockUserArray };
+export { mockUser1, mockUser2, mockUser3, mockUser4, mockUser5, mockUser6, mockUser7, mockUser8, mockUser9, mockUser10, mockUser11, mockUserArray, mockUserOne };

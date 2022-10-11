@@ -11,7 +11,7 @@ import { UserModel } from '../shared/model/user.model';
 })
 export class UserRegistrationFormComponent implements OnInit {
 
-  private user!: UserModel;
+  public user!: UserModel;
 
 	public isLoading!: boolean;
 	public userForm!: FormGroup;
@@ -21,7 +21,7 @@ export class UserRegistrationFormComponent implements OnInit {
     public dialogRef: MatDialogRef<UserRegistrationFormComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA)
-		private data: {
+		public data: {
 			user: UserModel,
       id: number[]
 		},
